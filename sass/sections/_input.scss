@@ -1,0 +1,31 @@
+.input-values {
+  padding: 2rem 0;
+  background-color: rgba(0,0,0,.1);
+
+  .input-wrapper {
+    display: flex;
+    justify-content: space-around;
+    width: 50%;
+    margin: 0 auto;
+
+    .add-type {
+      flex-basis: 5%;
+    }
+
+    .description {
+      flex-basis: 60%;
+
+      input {
+        width: 100%;
+      }
+    }
+
+    .value {
+      flex-basis: 20%;
+    }
+
+    .btn {
+      flex-basis: 5%;
+    }
+  }
+}

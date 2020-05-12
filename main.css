@@ -12,13 +12,6 @@ body {
 .row {
   max-width: 1240px;
   margin: 0 auto;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
 }
 
 .right {
@@ -65,7 +58,7 @@ body {
           flex-direction: column;
   -ms-flex-pack: distribute;
       justify-content: space-around;
-  height: 50%;
+  height: 60%;
   width: 25vw;
 }
 
@@ -79,6 +72,7 @@ body {
 .hero .budget .budget-value {
   text-align: center;
   font-size: 32px;
+  padding: 1rem 0;
 }
 
 .hero .budget .budget-income {
@@ -117,5 +111,44 @@ body {
 
 .hero .budget .budget-expenses .budget-expenses-title {
   font-size: 20px;
+}
+
+.input-values {
+  padding: 2rem 0;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.input-values .input-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.input-values .input-wrapper .add-type {
+  -ms-flex-preferred-size: 5%;
+      flex-basis: 5%;
+}
+
+.input-values .input-wrapper .description {
+  -ms-flex-preferred-size: 60%;
+      flex-basis: 60%;
+}
+
+.input-values .input-wrapper .description input {
+  width: 100%;
+}
+
+.input-values .input-wrapper .value {
+  -ms-flex-preferred-size: 20%;
+      flex-basis: 20%;
+}
+
+.input-values .input-wrapper .btn {
+  -ms-flex-preferred-size: 5%;
+      flex-basis: 5%;
 }
 /*# sourceMappingURL=main.css.map */
