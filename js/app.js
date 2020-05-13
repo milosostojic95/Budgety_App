@@ -85,6 +85,19 @@ const UIController = (() => {
       document.querySelector(element).insertAdjacentHTML('beforeend',newHtml);
 
     },
+
+    clearFields: function() {
+      let fields,fieldsArr;
+
+      fields = document.querySelectorAll(DOMStrings.inputDescription + ',' + DOMStrings.inputValue);
+      fieldsArr = Array.prototype.slice.call(fields);
+
+      fieldsArr.forEach((item)=> {
+        item.value = '';
+      });
+
+    },
+
     getDOMStrings: () => {
       return DOMStrings;
     }
@@ -111,11 +124,12 @@ const controller = ((budgetCtrl,UICtrl) => {
     // 1. get input date
     const input = UICtrl.getInput();
     // 2.add item to budget controlor
-    console.log(input)
 
     const newItem = budgetCtrl.addItem(input.type, input.description, input.value);
     // 3. add item to ui
     UICtrl.addListItem(newItem,input.type);
+    UICtrl.clearFields();
+
   }
 
   return {
