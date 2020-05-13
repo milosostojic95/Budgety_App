@@ -26,21 +26,31 @@ const UIController = (function() {
 
 const controller = (function(budgetCtrl,UICtrl) {
   // variables
-  const DOM = UICtrl.getDOMStrings();
-  const addItemBtn = document.querySelector(DOM.inputBtn);
 
-  //event
-  addItemBtn.addEventListener('click',ctrlAddItems);
-  addItemBtn.addEventListener('keypress', (event) => {
+
+  // functions
+  function setupEventListener() {
+    const DOM = UICtrl.getDOMStrings();
+    const addItemBtn = document.querySelector(DOM.inputBtn);
+    addItemBtn.addEventListener('click',ctrlAddItems);
+    addItemBtn.addEventListener('keypress', (event) => {
     if( event.keyCode === 13 ) {
       ctrlAddItems();
     }
   })
+  }
 
-  // functions
   function ctrlAddItems() {
     // 1. get input date
     const input = UICtrl.getInput();
-    console.log(input)
   }
+
+  return {
+    init: function() {
+      console.log('Aplication has started.');
+      setupEventListener();
+    }
+  };
+
 })(budgetController,UIController);
+controller.init();

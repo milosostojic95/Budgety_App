@@ -27,10 +27,6 @@ body {
           justify-content: space-between;
 }
 
-.content-title {
-  text-align: center;
-}
-
 .hero {
   height: 40vh;
   background: url("../../1-u-s-dollar-bill-164661.jpg");
@@ -197,8 +193,18 @@ body {
       flex-basis: 50%;
 }
 
+.budget-content .budget-wrapper .income-content .income-title {
+  text-align: center;
+  color: seagreen;
+}
+
 .budget-content .budget-wrapper .expenses-content {
   -ms-flex-preferred-size: 50%;
       flex-basis: 50%;
+}
+
+.budget-content .budget-wrapper .expenses-content .expenses-title {
+  color: tomato;
+  text-align: center;
 }
 /*# sourceMappingURL=main.css.map */

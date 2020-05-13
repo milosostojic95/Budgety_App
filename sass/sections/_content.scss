@@ -6,10 +6,20 @@
 
     .income-content {
       flex-basis: 50%;
+
+      .income-title {
+        text-align: center;
+        color: seagreen;
+      }
     }
 
     .expenses-content {
       flex-basis: 50%;
+
+      .expenses-title {
+        color: tomato;
+        text-align: center;
+      }
     }
   }
 }
