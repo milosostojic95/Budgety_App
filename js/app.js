@@ -1,5 +1,28 @@
 const budgetController = (function() {
 
+  const Expenses = (id, description, value) => {
+    this.id = id;
+    this.description = description;
+    this.value = value;
+  }
+
+  const Income = (id, description, value) => {
+    this.id = id;
+    this.description = description;
+    this.value = value;
+  }
+
+  const data = {
+    allItems: {
+      exp: [],
+      inc: []
+    },
+    total: {
+      exp: 0,
+      inc: 0,
+    }
+  }
+
 })();
 
 const UIController = (function() {
@@ -32,6 +55,7 @@ const controller = (function(budgetCtrl,UICtrl) {
   function setupEventListener() {
     const DOM = UICtrl.getDOMStrings();
     const addItemBtn = document.querySelector(DOM.inputBtn);
+
     addItemBtn.addEventListener('click',ctrlAddItems);
     addItemBtn.addEventListener('keypress', (event) => {
     if( event.keyCode === 13 ) {
@@ -43,6 +67,7 @@ const controller = (function(budgetCtrl,UICtrl) {
   function ctrlAddItems() {
     // 1. get input date
     const input = UICtrl.getInput();
+    // 2.
   }
 
   return {
