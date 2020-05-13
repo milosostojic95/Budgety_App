@@ -44,9 +44,6 @@ const budgetController = (() => {
       // return new element
       return newItem;
     },
-    testing: () => {
-      console.log(data);
-    }
   };
 
 
@@ -57,7 +54,9 @@ const UIController = (() => {
     inputType: '.add-type',
     inputDescription: '.add-description',
     inputValue: '.add-value',
-    inputBtn: '.add-btn'
+    inputBtn: '.add-btn',
+    incomeContainer: '.income-list',
+    expensesContainer: '.expenses-list',
   }
 
   return {
@@ -67,6 +66,24 @@ const UIController = (() => {
         description: document.querySelector(DOMStrings.inputDescription).value,
         value: document.querySelector(DOMStrings.inputValue).value,
       }
+    },
+    addListItem: (obj,type) => {
+      let html,newHtml,element;
+      //create html string with placeholder
+      if(type === 'inc') {
+        element = DOMStrings.incomeContainer;
+        html = '<div class="item clearfix" id="income-%id%"><div class="item-description">%description%</div><div class="right"><div class="item-value">%value%</div><div class="item-delete"><button class="item-delete-btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
+      } else if(type === 'exp') {
+        element = DOMStrings.expensesContainer;
+        html =  '<div class="item" id="expense-%id%"><div class="item-description">%description%</div><div class="right"><div class="item-value">%value%</div><div class="item__percentage">21%</div><div class="item-delete"><button class="item-delete-btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
+      }
+      // replace place holder with some actual date
+      newHtml = html.replace('%id%', obj.id);
+      newHtml = newHtml.replace('%description%', obj.description);
+      newHtml = newHtml.replace('%value%', obj.value);
+      // insert html to DOM
+      document.querySelector(element).insertAdjacentHTML('beforeend',newHtml);
+
     },
     getDOMStrings: () => {
       return DOMStrings;
@@ -92,9 +109,13 @@ const controller = ((budgetCtrl,UICtrl) => {
   function ctrlAddItems() {
 
     // 1. get input date
-    input = UICtrl.getInput();
+    const input = UICtrl.getInput();
     // 2.add item to budget controlor
-    budgetCtrl.addItem(input.type, input.description, input.value);
+    console.log(input)
+
+    const newItem = budgetCtrl.addItem(input.type, input.description, input.value);
+    // 3. add item to ui
+    UICtrl.addListItem(newItem,input.type);
   }
 
   return {
