@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,600" rel="stylesheet" type="text/css">
+    <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="./main.css">
 </head>
 <body>
@@ -16,10 +18,8 @@
       <div class="budget-income">
         <div class="budget-income-title">Income</div>
         <div class="right">
-          <div class="row">
-            <div class="budget-income-value">+ 4,300</div>
-            <div class="baget-income-percentage">45%</div>
-          </div>
+          <div class="budget-income-value">+ 4,300</div>
+          <div class="baget-income-percentage">45%</div>
         </div>
       </div>
       <div class="budget-expenses">
@@ -38,13 +38,21 @@
         <option value="exp">-</option>
       </select>
       <div class="description">
-        <input type="text" placeholder="Add description">
+        <input type="text" class="add-description" placeholder="Add description">
       </div>
       <div class="value">
-        <input type="text" placeholder="Value">
+        <input type="text" class="add-value" placeholder="Value">
       </div>
       <div class="btn">
-        <button>Add</button>
+        <button class="add-btn"><i class="ion-ios-checkmark-outline"></i></button>
+      </div>
+    </div>
+  </section>
+  <section class="budget-content">
+    <div class="row">
+      <div class="budget-wrapper">
+        <div class="income-content"></div>
+        <div class="expenses-content"></div>
       </div>
     </div>
   </section>

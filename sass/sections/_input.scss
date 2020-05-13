@@ -10,22 +10,46 @@
 
     .add-type {
       flex-basis: 5%;
+      border: 1px solid rgb(231, 231, 231);
     }
 
     .description {
       flex-basis: 60%;
 
-      input {
+      .add-description {
         width: 100%;
+        background-color: rgb(255, 255, 255);
+        border: 1px solid rgb(231, 231, 231);
+        padding: 12px 15px;
+        border-radius: 5px;
       }
     }
 
     .value {
       flex-basis: 20%;
+
+      .add-value {
+        padding: 12px 15px;
+        border: 1px solid rgb(231, 231, 231);
+        padding: 12px 15px;
+        border-radius: 5px;
+      }
     }
 
     .btn {
       flex-basis: 5%;
+
+      .add-btn {
+        font-size: 35px;
+        color: rgb(40, 185, 181);
+        border: none;
+        background: transparent;
+        transition: all .3s ease;
+
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
     }
   }
 }

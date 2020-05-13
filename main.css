@@ -71,8 +71,8 @@ body {
 
 .hero .budget .budget-value {
   text-align: center;
-  font-size: 32px;
-  padding: 1rem 0;
+  font-size: 40px;
+  padding: 1.3rem 0;
 }
 
 .hero .budget .budget-income {
@@ -131,6 +131,7 @@ body {
 .input-values .input-wrapper .add-type {
   -ms-flex-preferred-size: 5%;
       flex-basis: 5%;
+  border: 1px solid #e7e7e7;
 }
 
 .input-values .input-wrapper .description {
@@ -138,8 +139,12 @@ body {
       flex-basis: 60%;
 }
 
-.input-values .input-wrapper .description input {
+.input-values .input-wrapper .description .add-description {
   width: 100%;
+  background-color: white;
+  border: 1px solid #e7e7e7;
+  padding: 12px 15px;
+  border-radius: 5px;
 }
 
 .input-values .input-wrapper .value {
@@ -147,8 +152,29 @@ body {
       flex-basis: 20%;
 }
 
+.input-values .input-wrapper .value .add-value {
+  padding: 12px 15px;
+  border: 1px solid #e7e7e7;
+  padding: 12px 15px;
+  border-radius: 5px;
+}
+
 .input-values .input-wrapper .btn {
   -ms-flex-preferred-size: 5%;
       flex-basis: 5%;
+}
+
+.input-values .input-wrapper .btn .add-btn {
+  font-size: 35px;
+  color: #28b9b5;
+  border: none;
+  background: transparent;
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
+.input-values .input-wrapper .btn .add-btn:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
 }
 /*# sourceMappingURL=main.css.map */
