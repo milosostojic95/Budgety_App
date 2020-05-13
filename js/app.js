@@ -72,10 +72,10 @@ const UIController = (() => {
       //create html string with placeholder
       if(type === 'inc') {
         element = DOMStrings.incomeContainer;
-        html = '<div class="item clearfix" id="income-%id%"><div class="item-description">%description%</div><div class="right"><div class="item-value">%value%</div><div class="item-delete"><button class="item-delete-btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
+        html = '<div class="item" id="income-%id%"><div class="item-description">%description%</div><div class="right"><div class="item-value">+ %value%</div><div class="item-delete"><button class="item-delete-btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
       } else if(type === 'exp') {
         element = DOMStrings.expensesContainer;
-        html =  '<div class="item" id="expense-%id%"><div class="item-description">%description%</div><div class="right"><div class="item-value">%value%</div><div class="item__percentage">21%</div><div class="item-delete"><button class="item-delete-btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
+        html =  '<div class="item" id="expense-%id%"><div class="item-description">%description%</div><div class="right"><div class="item-value">- %value%</div><div class="item__percentage">21%</div><div class="item-delete"><button class="item-delete-btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
       }
       // replace place holder with some actual date
       newHtml = html.replace('%id%', obj.id);

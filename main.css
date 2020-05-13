@@ -186,25 +186,69 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .budget-content .budget-wrapper .income-content {
-  -ms-flex-preferred-size: 50%;
-      flex-basis: 50%;
+  -ms-flex-preferred-size: 45%;
+      flex-basis: 45%;
 }
 
 .budget-content .budget-wrapper .income-content .income-title {
-  text-align: center;
+  color: seagreen;
+  padding-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+.budget-content .budget-wrapper .income-content .income-list .item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: .7rem 1rem;
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.budget-content .budget-wrapper .income-content .income-list .item .item-description {
+  color: seagreen;
+}
+
+.budget-content .budget-wrapper .income-content .income-list .item .item-value {
   color: seagreen;
 }
 
 .budget-content .budget-wrapper .expenses-content {
-  -ms-flex-preferred-size: 50%;
-      flex-basis: 50%;
+  -ms-flex-preferred-size: 45%;
+      flex-basis: 45%;
 }
 
 .budget-content .budget-wrapper .expenses-content .expenses-title {
   color: tomato;
   text-align: center;
+  padding-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+.budget-content .budget-wrapper .expenses-content .expenses-list .item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: .7rem 1rem;
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.budget-content .budget-wrapper .expenses-content .expenses-list .item .item-description {
+  color: tomato;
+}
+
+.budget-content .budget-wrapper .expenses-content .expenses-list .item .item-value {
+  color: tomato;
 }
 /*# sourceMappingURL=main.css.map */

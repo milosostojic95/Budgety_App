@@ -3,22 +3,62 @@
 
   .budget-wrapper {
     display: flex;
+    justify-content: space-between;
 
     .income-content {
-      flex-basis: 50%;
+      flex-basis: 45%;
 
       .income-title {
-        text-align: center;
         color: seagreen;
+        padding-bottom: 2rem;
+        text-transform: uppercase;
+      }
+
+      .income-list {
+
+        .item {
+          display: flex;
+          justify-content: space-between;
+          padding: .7rem 1rem;
+          border-bottom: 1px solid #e7e7e7;
+
+          .item-description {
+            color: seagreen;
+          }
+
+          .item-value {
+            color: seagreen;
+          }
+        }
       }
     }
 
     .expenses-content {
-      flex-basis: 50%;
+      flex-basis: 45%;
 
       .expenses-title {
         color: tomato;
         text-align: center;
+        padding-bottom: 2rem;
+        text-transform: uppercase;
+      }
+
+      .expenses-list {
+
+        .item {
+          display: flex;
+          justify-content: space-between;
+          padding: .7rem 1rem;
+          border-bottom: 1px solid #e7e7e7;
+
+          .item-description {
+            color: tomato;
+          }
+
+          .item-value {
+            color: tomato;
+          }
+        }
       }
     }
   }
