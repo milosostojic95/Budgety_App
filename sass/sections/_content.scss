@@ -1,0 +1,15 @@
+.budget-content {
+  padding-top: 20px;
+
+  .budget-wrapper {
+    display: flex;
+
+    .income-content {
+      flex-basis: 50%;
+    }
+
+    .expenses-content {
+      flex-basis: 50%;
+    }
+  }
+}

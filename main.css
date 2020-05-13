@@ -27,6 +27,10 @@ body {
           justify-content: space-between;
 }
 
+.content-title {
+  text-align: center;
+}
+
 .hero {
   height: 40vh;
   background: url("../../1-u-s-dollar-bill-164661.jpg");
@@ -114,7 +118,7 @@ body {
 }
 
 .input-values {
-  padding: 2rem 0;
+  padding: 1rem 0;
   background-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -176,5 +180,25 @@ body {
 .input-values .input-wrapper .btn .add-btn:hover {
   -webkit-transform: scale(1.1);
           transform: scale(1.1);
+}
+
+.budget-content {
+  padding-top: 20px;
+}
+
+.budget-content .budget-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.budget-content .budget-wrapper .income-content {
+  -ms-flex-preferred-size: 50%;
+      flex-basis: 50%;
+}
+
+.budget-content .budget-wrapper .expenses-content {
+  -ms-flex-preferred-size: 50%;
+      flex-basis: 50%;
 }
 /*# sourceMappingURL=main.css.map */
