@@ -1,12 +1,12 @@
-const budgetController = (function() {
+const budgetController = (() => {
 
-  const Expenses = (id, description, value) => {
+  const Expenses = function(id, description, value) {
     this.id = id;
     this.description = description;
     this.value = value;
   }
 
-  const Income = (id, description, value) => {
+  const Income = function (id, description, value) {
     this.id = id;
     this.description = description;
     this.value = value;
@@ -23,9 +23,36 @@ const budgetController = (function() {
     }
   }
 
+  return {
+    addItem: (type, des, val) => {
+      let newItem;
+      let ID;
+      //create new id
+      if(data.allItems[type].length > 0) {
+        ID = data.allItems[type][data.allItems[type].length - 1].id + 1;
+      } else {
+        ID = 0;
+      }
+      //create new item
+      if(type === 'exp') {
+        newItem = new Expenses(ID, des, val);
+      } else if(type === 'inc') {
+        newItem = new Income(ID, des, val);
+      }
+      // push into data structure
+      data.allItems[type].push(newItem);
+      // return new element
+      return newItem;
+    },
+    testing: () => {
+      console.log(data);
+    }
+  };
+
+
 })();
 
-const UIController = (function() {
+const UIController = (() => {
   const DOMStrings = {
     inputType: '.add-type',
     inputDescription: '.add-description',
@@ -34,22 +61,20 @@ const UIController = (function() {
   }
 
   return {
-    getInput: function() {
+    getInput: () => {
       return {
-        addType: document.querySelector(DOMStrings.inputType).value,
-        addDescription: document.querySelector(DOMStrings.inputDescription).value,
-        addValue: document.querySelector(DOMStrings.inputValue).value,
+        type: document.querySelector(DOMStrings.inputType).value,
+        description: document.querySelector(DOMStrings.inputDescription).value,
+        value: document.querySelector(DOMStrings.inputValue).value,
       }
     },
-    getDOMStrings: function() {
+    getDOMStrings: () => {
       return DOMStrings;
     }
   }
 })();
 
-const controller = (function(budgetCtrl,UICtrl) {
-  // variables
-
+const controller = ((budgetCtrl,UICtrl) => {
 
   // functions
   function setupEventListener() {
@@ -65,13 +90,15 @@ const controller = (function(budgetCtrl,UICtrl) {
   }
 
   function ctrlAddItems() {
+
     // 1. get input date
-    const input = UICtrl.getInput();
-    // 2.
+    input = UICtrl.getInput();
+    // 2.add item to budget controlor
+    budgetCtrl.addItem(input.type, input.description, input.value);
   }
 
   return {
-    init: function() {
+    init: () => {
       console.log('Aplication has started.');
       setupEventListener();
     }
