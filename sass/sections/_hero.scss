@@ -39,6 +39,14 @@
       .budget-income-title {
         font-size: 20px;
       }
+
+      .right {
+        margin-left: 2rem;
+
+        .budget-income-value {
+          margin-right: 2.2rem;
+        }
+      }
     }
 
     .budget-expenses {
@@ -50,6 +58,13 @@
 
       .budget-expenses-title {
         font-size: 20px;
+      }
+
+      .right {
+
+        .budget-expenses-percentage {
+          margin-left: .5rem;
+        }
       }
     }
   }

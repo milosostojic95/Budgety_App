@@ -90,6 +90,14 @@
   font-size: 20px;
 }
 
+.hero .budget .budget-income .right {
+  margin-left: 2rem;
+}
+
+.hero .budget .budget-income .right .budget-income-value {
+  margin-right: 2.2rem;
+}
+
 .hero .budget .budget-expenses {
   background-color: tomato;
   padding: .8rem;
@@ -107,6 +115,10 @@
 
 .hero .budget .budget-expenses .budget-expenses-title {
   font-size: 20px;
+}
+
+.hero .budget .budget-expenses .right .budget-expenses-percentage {
+  margin-left: .5rem;
 }
 
 .input-values {
