@@ -98,6 +98,7 @@ const UIController = (() => {
     incomeLabel: '.budget-income-value',
     expenseLabel: '.budget-expenses-value',
     percentageLable: '.budget-expenses-percentage',
+    container: '.budget-content',
   }
 
   return {
@@ -114,10 +115,10 @@ const UIController = (() => {
       //create html string with placeholder
       if(type === 'inc') {
         element = DOMStrings.incomeContainer;
-        html = '<div class="item" id="income-%id%"><div class="item-description">%description%</div><div class="right"><div class="item-value">+ %value%</div><div class="item-delete"><button class="item-delete-btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
+        html = '<div class="item" id="inc-%id%"><div class="item-description">%description%</div><div class="right"><div class="item-value">+ %value%</div><div class="item-delete"><button class="item-delete-btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
       } else if(type === 'exp') {
         element = DOMStrings.expensesContainer;
-        html =  '<div class="item" id="expense-%id%"><div class="item-description">%description%</div><div class="right"><div class="item-value">- %value%</div><div class="item__percentage">21%</div><div class="item-delete"><button class="item-delete-btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
+        html =  '<div class="item" id="exp-%id%"><div class="item-description">%description%</div><div class="right"><div class="item-value">- %value%</div><div class="item__percentage">21%</div><div class="item-delete"><button class="item-delete-btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
       }
       // replace place holder with some actual date
       newHtml = html.replace('%id%', obj.id);
@@ -165,10 +166,12 @@ const controller = ((budgetCtrl,UICtrl) => {
   function setupEventListener() {
     const DOM = UICtrl.getDOMStrings();
     const addItemBtn = document.querySelector(DOM.inputBtn);
+    const container = document.querySelector(DOM.container);
 
     addItemBtn.addEventListener('click',ctrlAddItems);
+    container.addEventListener('click', ctrlDeleteItem);
     addItemBtn.addEventListener('keypress', (event) => {
-    if( event.keyCode === 13 ) {
+    if( event.keyCode === 13 || event.which === 13) {
       ctrlAddItems();
     }
   })
@@ -178,7 +181,6 @@ const controller = ((budgetCtrl,UICtrl) => {
     let budget;
     // 1. calculate budget
     budgetCtrl.calculateBudget();
-
     // 2.return budget
     budget = budgetCtrl.getBudget();
 
@@ -186,6 +188,7 @@ const controller = ((budgetCtrl,UICtrl) => {
     UICtrl.displayBudget(budget);
   }
 
+  // add items
   function ctrlAddItems() {
 
     // 1. get input date
@@ -202,6 +205,17 @@ const controller = ((budgetCtrl,UICtrl) => {
 
     }
   }
+  // delete items
+  function ctrlDeleteItem(event) {
+    const itemId = event.target.parentNode.parentNode.parentNode.parentNode.id;
+    if(itemId) {
+      const splitId = itemId.split('-')
+      const type = splitId[0];
+      let ID = splitId[1];
+      console.log(splitId);
+    }
+  }
+
 
   return {
     init: () => {
