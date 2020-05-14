@@ -47,6 +47,18 @@ const budgetController = (() => {
       return newItem;
     },
 
+    deleteItem: function(type, id) {
+      let ids,index;
+
+      ids = data.allItems[type].map((current)=> {
+        return current.id;
+      })
+      index = ids.indexOf(id);
+      if(index !== -1) {
+        data.allItems[type].splice(index, 1)
+      }
+    },
+
     calculateTotal: function(type) {
       let sum = 0;
       data.allItems[type].forEach((cur) => {
@@ -78,7 +90,11 @@ const budgetController = (() => {
         totalExp: data.total.exp,
         percentage: data.percentage,
       }
+    },
+    testing: function() {
+      console.log(data)
     }
+
   };
 
 
@@ -211,8 +227,9 @@ const controller = ((budgetCtrl,UICtrl) => {
     if(itemId) {
       const splitId = itemId.split('-')
       const type = splitId[0];
-      let ID = splitId[1];
-      console.log(splitId);
+      let ID = parseInt(splitId[1]);
+
+      budgetCtrl.deleteItem(type,ID)
     }
   }
 
