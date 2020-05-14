@@ -145,6 +145,11 @@ const UIController = (() => {
 
     },
 
+    deleteListItem: function(selectorID) {
+      const el = document.getElementById(selectorID);
+      el.parentNode.removeChild(el);
+    },
+
     clearFields: function() {
       let fields,fieldsArr;
 
@@ -159,6 +164,8 @@ const UIController = (() => {
 
     displayBudget: function(obj) {
       if(obj.budget > 0) {
+        document.querySelector(DOMStrings.budgetLabel).textContent = '+' + obj.budget;
+      } else {
         document.querySelector(DOMStrings.budgetLabel).textContent = obj.budget;
       }
       document.querySelector(DOMStrings.incomeLabel).textContent = obj.totalInc;
@@ -228,8 +235,12 @@ const controller = ((budgetCtrl,UICtrl) => {
       const splitId = itemId.split('-')
       const type = splitId[0];
       let ID = parseInt(splitId[1]);
-
-      budgetCtrl.deleteItem(type,ID)
+      // delete from data
+      budgetCtrl.deleteItem(type,ID);
+      // delete from ui
+      UICtrl.deleteListItem(itemId);
+      // 3. update budget
+      updateBudget();
     }
   }
 

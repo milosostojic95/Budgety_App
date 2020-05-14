@@ -23,6 +23,21 @@
           justify-content: space-between;
 }
 
+.item-delete-btn {
+  background: transparent;
+  border: none;
+  margin-left: .5rem;
+  color: seagreen;
+  font-size: 18px;
+  -webkit-transition: all .1s ease-in;
+  transition: all .1s ease-in;
+}
+
+.item-delete-btn:hover {
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+}
+
 .hero {
   height: 40vh;
   background: url("../../1-u-s-dollar-bill-164661.jpg");

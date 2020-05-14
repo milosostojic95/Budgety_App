@@ -1,0 +1,12 @@
+.item-delete-btn {
+  background: transparent;
+  border: none;
+  margin-left: .5rem;
+  color: seagreen;
+  font-size: 18px;
+  transition: all .1s ease-in;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
