@@ -22,6 +22,11 @@
         border: 1px solid rgb(231, 231, 231);
         padding: 12px 15px;
         border-radius: 5px;
+
+        &:focus {
+          outline: none;
+         border-color: tomato;
+        }
       }
     }
 
@@ -33,6 +38,11 @@
         border: 1px solid rgb(231, 231, 231);
         padding: 12px 15px;
         border-radius: 5px;
+
+        &:focus {
+          outline: none;
+          border-color: tomato;
+        }
       }
     }
 

@@ -143,6 +143,11 @@
   border-radius: 5px;
 }
 
+.input-values .input-wrapper .description .add-description:focus {
+  outline: none;
+  border-color: tomato;
+}
+
 .input-values .input-wrapper .value {
   -ms-flex-preferred-size: 20%;
       flex-basis: 20%;
@@ -153,6 +158,11 @@
   border: 1px solid #e7e7e7;
   padding: 12px 15px;
   border-radius: 5px;
+}
+
+.input-values .input-wrapper .value .add-value:focus {
+  outline: none;
+  border-color: tomato;
 }
 
 .input-values .input-wrapper .btn {
@@ -209,6 +219,10 @@
   border-bottom: 1px solid #e7e7e7;
 }
 
+.budget-content .budget-wrapper .income-content .income-list .item:nth-child(even) {
+  background-color: red;
+}
+
 .budget-content .budget-wrapper .income-content .income-list .item .item-description {
   color: seagreen;
 }
@@ -226,7 +240,6 @@
   color: tomato;
   text-align: center;
   padding-bottom: 2rem;
-  text-transform: uppercase;
 }
 
 .budget-content .budget-wrapper .expenses-content .expenses-list .item {

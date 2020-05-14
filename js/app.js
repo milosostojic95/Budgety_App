@@ -49,6 +49,8 @@ const budgetController = (() => {
 
 })();
 
+
+// user interface controller
 const UIController = (() => {
   const DOMStrings = {
     inputType: '.add-type',
@@ -64,9 +66,10 @@ const UIController = (() => {
       return {
         type: document.querySelector(DOMStrings.inputType).value,
         description: document.querySelector(DOMStrings.inputDescription).value,
-        value: document.querySelector(DOMStrings.inputValue).value,
+        value: parseFloat(document.querySelector(DOMStrings.inputValue).value),
       }
     },
+
     addListItem: (obj,type) => {
       let html,newHtml,element;
       //create html string with placeholder
@@ -119,6 +122,12 @@ const controller = ((budgetCtrl,UICtrl) => {
   })
   }
 
+  function updateBudget() {
+    // 1. calculate budget
+
+    //2. display budget
+  }
+
   function ctrlAddItems() {
 
     // 1. get input date
@@ -128,7 +137,10 @@ const controller = ((budgetCtrl,UICtrl) => {
     const newItem = budgetCtrl.addItem(input.type, input.description, input.value);
     // 3. add item to ui
     UICtrl.addListItem(newItem,input.type);
+    // 4. clear filed
     UICtrl.clearFields();
+    // 5. calculate and update budget
+    updateBudget();
 
   }
 

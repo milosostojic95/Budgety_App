@@ -22,6 +22,10 @@
           padding: .7rem 1rem;
           border-bottom: 1px solid #e7e7e7;
 
+          &:nth-child(even) {
+            background-color: red;
+          }
+
           .item-description {
             color: seagreen;
           }
@@ -40,7 +44,6 @@
         color: tomato;
         text-align: center;
         padding-bottom: 2rem;
-        text-transform: uppercase;
       }
 
       .expenses-list {
