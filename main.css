@@ -216,11 +216,15 @@
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding: .7rem 1rem;
-  border-bottom: 1px solid #e7e7e7;
+}
+
+.budget-content .budget-wrapper .income-content .income-list .item:nth-child(odd) {
+  border-bottom: 1px solid #a7a4a475;
+  border-top: 1px solid #a7a4a475;
 }
 
 .budget-content .budget-wrapper .income-content .income-list .item:nth-child(even) {
-  background-color: red;
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .budget-content .budget-wrapper .income-content .income-list .item .item-description {
@@ -250,7 +254,15 @@
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding: .7rem 1rem;
-  border-bottom: 1px solid #e7e7e7;
+}
+
+.budget-content .budget-wrapper .expenses-content .expenses-list .item:nth-child(odd) {
+  border-bottom: 1px solid #a7a4a475;
+  border-top: 1px solid #a7a4a475;
+}
+
+.budget-content .budget-wrapper .expenses-content .expenses-list .item:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .budget-content .budget-wrapper .expenses-content .expenses-list .item .item-description {

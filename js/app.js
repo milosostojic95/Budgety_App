@@ -20,7 +20,9 @@ const budgetController = (() => {
     total: {
       exp: 0,
       inc: 0,
-    }
+    },
+    budget: 0,
+    percentage: -1,
   }
 
   return {
@@ -44,6 +46,39 @@ const budgetController = (() => {
       // return new element
       return newItem;
     },
+
+    calculateTotal: function(type) {
+      let sum = 0;
+      data.allItems[type].forEach((cur) => {
+        sum += cur.value;
+      });
+      data.total[type] = sum;
+    },
+
+    calculateBudget: function() {
+      // 1. calculate expnexes nad income
+      this.calculateTotal('inc');
+      this.calculateTotal('exp');
+
+      // 2. calculate budget
+      data.budget = data.total.inc - data.total.exp;
+
+      //3. calculate the percentage of income we spent
+      if(data.total.inc > 0) {
+        data.percentage = Math.round((data.total.exp / data.total.inc) * 100);
+      } else {
+        data.percentage = -1;
+      }
+    },
+
+    getBudget: function() {
+      return {
+        budget: data.budget,
+        totalInc: data.total.inc,
+        totalExp: data.total.exp,
+        percentage: data.percentage,
+      }
+    }
   };
 
 
@@ -123,9 +158,15 @@ const controller = ((budgetCtrl,UICtrl) => {
   }
 
   function updateBudget() {
+    let budget;
     // 1. calculate budget
+    budgetCtrl.calculateBudget();
 
-    //2. display budget
+    // 2.return budget
+    budget = budgetCtrl.getBudget();
+
+    //3. display budget
+    console.log(budget);
   }
 
   function ctrlAddItems() {

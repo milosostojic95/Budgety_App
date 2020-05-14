@@ -20,10 +20,14 @@
           display: flex;
           justify-content: space-between;
           padding: .7rem 1rem;
-          border-bottom: 1px solid #e7e7e7;
+
+          &:nth-child(odd) {
+            border-bottom: 1px solid #a7a4a475;
+            border-top: 1px solid #a7a4a475;
+          }
 
           &:nth-child(even) {
-            background-color: red;
+            background-color: rgba(0,0,0,.05);
           }
 
           .item-description {
@@ -52,7 +56,15 @@
           display: flex;
           justify-content: space-between;
           padding: .7rem 1rem;
-          border-bottom: 1px solid #e7e7e7;
+
+          &:nth-child(odd) {
+            border-bottom: 1px solid #a7a4a475;
+            border-top: 1px solid #a7a4a475;
+          }
+
+          &:nth-child(even) {
+            background-color: rgba(0,0,0,.05);
+          }
 
           .item-description {
             color: tomato;
