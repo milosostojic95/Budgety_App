@@ -133,15 +133,16 @@ const controller = ((budgetCtrl,UICtrl) => {
     // 1. get input date
     const input = UICtrl.getInput();
     // 2.add item to budget controlor
+    if(input.description !== '' && !isNaN(input.value) && input.value > 0) {
+      const newItem = budgetCtrl.addItem(input.type, input.description, input.value);
+      // 3. add item to ui
+      UICtrl.addListItem(newItem,input.type);
+      // 4. clear filed
+      UICtrl.clearFields();
+      // 5. calculate and update budget
+      updateBudget();
 
-    const newItem = budgetCtrl.addItem(input.type, input.description, input.value);
-    // 3. add item to ui
-    UICtrl.addListItem(newItem,input.type);
-    // 4. clear filed
-    UICtrl.clearFields();
-    // 5. calculate and update budget
-    updateBudget();
-
+    }
   }
 
   return {
