@@ -38,6 +38,29 @@
           transform: scale(1.05);
 }
 
+.btn {
+  -ms-flex-preferred-size: 5%;
+      flex-basis: 5%;
+}
+
+.btn .add-btn {
+  font-size: 35px;
+  color: #28b9b5;
+  border: none;
+  background: transparent;
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
+.btn .add-btn:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.btn .add-btn:focus {
+  outline: none;
+}
+
 .hero {
   height: 40vh;
   background: url("../../1-u-s-dollar-bill-164661.jpg");
@@ -190,25 +213,6 @@
 .input-values .input-wrapper .value .add-value:focus {
   outline: none;
   border-color: tomato;
-}
-
-.input-values .input-wrapper .btn {
-  -ms-flex-preferred-size: 5%;
-      flex-basis: 5%;
-}
-
-.input-values .input-wrapper .btn .add-btn {
-  font-size: 35px;
-  color: #28b9b5;
-  border: none;
-  background: transparent;
-  -webkit-transition: all .3s ease;
-  transition: all .3s ease;
-}
-
-.input-values .input-wrapper .btn .add-btn:hover {
-  -webkit-transform: scale(1.1);
-          transform: scale(1.1);
 }
 
 .budget-content {

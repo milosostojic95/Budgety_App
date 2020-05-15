@@ -211,9 +211,11 @@ const controller = ((budgetCtrl,UICtrl) => {
     UICtrl.displayBudget(budget);
   }
 
+  function updatePercentage() {
+    // 1. calculate precentage
+  }
   // add items
   function ctrlAddItems() {
-
     // 1. get input date
     const input = UICtrl.getInput();
     // 2.add item to budget controlor
@@ -225,7 +227,8 @@ const controller = ((budgetCtrl,UICtrl) => {
       UICtrl.clearFields();
       // 5. calculate and update budget
       updateBudget();
-
+      // 6. upodate and calc percentage
+      updatePercentage();
     }
   }
   // delete items
@@ -241,6 +244,8 @@ const controller = ((budgetCtrl,UICtrl) => {
       UICtrl.deleteListItem(itemId);
       // 3. update budget
       updateBudget();
+      // 4. update and calc percentage
+      updatePercentage();
     }
   }
 

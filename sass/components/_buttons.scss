@@ -10,3 +10,23 @@
     transform: scale(1.05);
   }
 }
+
+.btn {
+  flex-basis: 5%;
+
+  .add-btn {
+    font-size: 35px;
+    color: rgb(40, 185, 181);
+    border: none;
+    background: transparent;
+    transition: all .3s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
