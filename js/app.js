@@ -139,6 +139,7 @@ const UIController = (() => {
     percentageLable: '.budget-expenses-percentage',
     container: '.budget-content',
     itemPercentage: '.item-percentage',
+    nowDate: '.budget-title-month',
   }
 
   function formatNumber(num,type) {
@@ -230,6 +231,13 @@ const UIController = (() => {
         }
       })
     },
+    displayMonth: function() {
+      const now = new Date();
+      const months = ['January','February','March','April','May','June','July','August','Septe,ber','October','November','December'];
+      const year = now.getFullYear();
+      const month = now.getMonth();
+      document.querySelector(DOMStrings.nowDate).textContent = months[month] + ' ' +year;
+    },
 
     getDOMStrings: () => {
       return DOMStrings;
@@ -313,6 +321,7 @@ const controller = ((budgetCtrl,UICtrl) => {
     init: () => {
       console.log('Aplication has started.');
       setupEventListener();
+      UICtrl.displayMonth();
       UICtrl.displayBudget({
         budget: 0,
         totalInc: 0,
