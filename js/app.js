@@ -202,9 +202,21 @@ const UIController = (() => {
     },
 
     displayPercentage: function(percentage) {
-      if(percentage > 0) {
-        document.querySelector(DOMStrings.itemPercentage).textContent = percentage + '%';
+      const filds = document.querySelectorAll(DOMStrings.itemPercentage);
+
+      let nodeListForEach = (list, callback) => {
+        for (i = 0; i < list.length ; i++) {
+          callback(list[i],i);
+        }
       }
+
+      nodeListForEach(filds,function(current, index) {
+        if(percentage[index] > 0) {
+          current.textContent = percentage[index] + '%';
+        } else {
+          current.textContent = '--';
+        }
+      })
     },
 
     getDOMStrings: () => {
