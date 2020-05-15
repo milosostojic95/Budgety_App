@@ -141,6 +141,19 @@ const UIController = (() => {
     itemPercentage: '.item-percentage',
   }
 
+  function formatNumber(num,type) {
+    num = Math.abs(num);
+    num = num.toFixed(2);
+
+    let numSplit = num.split('.');
+    let int = numSplit[0];
+    if(int.length > 3) {
+      int = int.substr(0, int.length - 3) + ',' + int.substr(int.length -3, 3)
+    }
+    let dec = numSplit[1];
+    return (type === 'exp' ? '-' : '+' ) + ' ' + int + '.' + dec;
+  };
+
   return {
     getInput: () => {
       return {
@@ -155,15 +168,15 @@ const UIController = (() => {
       //create html string with placeholder
       if(type === 'inc') {
         element = DOMStrings.incomeContainer;
-        html = '<div class="item" id="inc-%id%"><div class="item-description">%description%</div><div class="right"><div class="item-value">+ %value%</div><div class="item-delete"><button class="item-delete-btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
+        html = '<div class="item" id="inc-%id%"><div class="item-description">%description%</div><div class="right"><div class="item-value">%value%</div><div class="item-delete"><button class="item-delete-btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
       } else if(type === 'exp') {
         element = DOMStrings.expensesContainer;
-        html =  '<div class="item" id="exp-%id%"><div class="item-description">%description%</div><div class="right"><div class="item-value">- %value%</div><div class="item-percentage">21%</div><div class="item-delete"><button class="item-delete-btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
+        html =  '<div class="item" id="exp-%id%"><div class="item-description">%description%</div><div class="right"><div class="item-value">%value%</div><div class="item-percentage">21%</div><div class="item-delete"><button class="item-delete-btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
       }
       // replace place holder with some actual date
       newHtml = html.replace('%id%', obj.id);
       newHtml = newHtml.replace('%description%', obj.description);
-      newHtml = newHtml.replace('%value%', obj.value);
+      newHtml = newHtml.replace('%value%', formatNumber(obj.value, type));
       // insert html to DOM
       document.querySelector(element).insertAdjacentHTML('beforeend',newHtml);
 
@@ -187,13 +200,12 @@ const UIController = (() => {
     },
 
     displayBudget: function(obj) {
-      if(obj.budget > 0) {
-        document.querySelector(DOMStrings.budgetLabel).textContent = '+' + obj.budget;
-      } else {
-        document.querySelector(DOMStrings.budgetLabel).textContent = obj.budget;
-      }
-      document.querySelector(DOMStrings.incomeLabel).textContent = obj.totalInc;
-      document.querySelector(DOMStrings.expenseLabel).textContent =  obj.totalExp;
+      let type
+      obj.budget > 0 ? type = 'inc' : type = 'exp';
+
+      document.querySelector(DOMStrings.budgetLabel).textContent = formatNumber(obj.budget,type);
+      document.querySelector(DOMStrings.incomeLabel).textContent = formatNumber(obj.totalInc,'inc');
+      document.querySelector(DOMStrings.expenseLabel).textContent =  formatNumber(obj.totalExp, 'exp');
       if(obj.percentage > 0) {
         document.querySelector(DOMStrings.percentageLable).textContent = obj.percentage + '%';
       } else {
