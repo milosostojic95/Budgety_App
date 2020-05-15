@@ -4,13 +4,26 @@ const budgetController = (() => {
     this.id = id;
     this.description = description;
     this.value = value;
+    this.percentage = -1;
+  };
+
+  Expenses.prototype.calcPercentage = function(totalIncome) {
+    if(totalIncome > 0) {
+      this.percentage = Math.round((this.value / totalIncome) * 100);
+    } else {
+      this.percentage = -1;
+    }
+  };
+
+  Expenses.prototype.getPercentage = function() {
+    return this.percentage;
   }
 
   const Income = function (id, description, value) {
     this.id = id;
     this.description = description;
     this.value = value;
-  }
+  };
 
   const data = {
     allItems: {
@@ -59,6 +72,19 @@ const budgetController = (() => {
       }
     },
 
+    calculatePercentage: function() {
+      data.allItems.exp.forEach((per) => {
+        per.calcPercentage(data.total.inc);
+      });
+    },
+
+    getPercentage: function() {
+      let allPercentage = data.allItems.exp.map((cur) => {
+        return cur.getPercentage();
+      });
+      return allPercentage;
+    },
+
     calculateTotal: function(type) {
       let sum = 0;
       data.allItems[type].forEach((cur) => {
@@ -71,10 +97,8 @@ const budgetController = (() => {
       // 1. calculate expnexes nad income
       this.calculateTotal('inc');
       this.calculateTotal('exp');
-
       // 2. calculate budget
       data.budget = data.total.inc - data.total.exp;
-
       //3. calculate the percentage of income we spent
       if(data.total.inc > 0) {
         data.percentage = Math.round((data.total.exp / data.total.inc) * 100);
@@ -94,7 +118,6 @@ const budgetController = (() => {
     testing: function() {
       console.log(data)
     }
-
   };
 
 
@@ -115,6 +138,7 @@ const UIController = (() => {
     expenseLabel: '.budget-expenses-value',
     percentageLable: '.budget-expenses-percentage',
     container: '.budget-content',
+    itemPercentage: '.item-percentage',
   }
 
   return {
@@ -134,7 +158,7 @@ const UIController = (() => {
         html = '<div class="item" id="inc-%id%"><div class="item-description">%description%</div><div class="right"><div class="item-value">+ %value%</div><div class="item-delete"><button class="item-delete-btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
       } else if(type === 'exp') {
         element = DOMStrings.expensesContainer;
-        html =  '<div class="item" id="exp-%id%"><div class="item-description">%description%</div><div class="right"><div class="item-value">- %value%</div><div class="item__percentage">21%</div><div class="item-delete"><button class="item-delete-btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
+        html =  '<div class="item" id="exp-%id%"><div class="item-description">%description%</div><div class="right"><div class="item-value">- %value%</div><div class="item-percentage">21%</div><div class="item-delete"><button class="item-delete-btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
       }
       // replace place holder with some actual date
       newHtml = html.replace('%id%', obj.id);
@@ -177,6 +201,12 @@ const UIController = (() => {
       }
     },
 
+    displayPercentage: function(percentage) {
+      if(percentage > 0) {
+        document.querySelector(DOMStrings.itemPercentage).textContent = percentage + '%';
+      }
+    },
+
     getDOMStrings: () => {
       return DOMStrings;
     }
@@ -206,13 +236,18 @@ const controller = ((budgetCtrl,UICtrl) => {
     budgetCtrl.calculateBudget();
     // 2.return budget
     budget = budgetCtrl.getBudget();
-
     //3. display budget
     UICtrl.displayBudget(budget);
   }
 
   function updatePercentage() {
     // 1. calculate precentage
+    budgetCtrl.calculatePercentage();
+    // 2. get percentage
+    let expPercentage = budgetCtrl.getPercentage();
+    // 3. diplsay percentage
+    UICtrl.displayPercentage(expPercentage);
+
   }
   // add items
   function ctrlAddItems() {

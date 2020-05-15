@@ -302,5 +302,10 @@
 
 .budget-content .budget-wrapper .expenses-content .expenses-list .item .item-value {
   color: tomato;
+  margin-right: 1rem;
+}
+
+.budget-content .budget-wrapper .expenses-content .expenses-list .item .item-percentage {
+  color: tomato;
 }
 /*# sourceMappingURL=main.css.map */
