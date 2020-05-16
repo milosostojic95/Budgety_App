@@ -16,3 +16,15 @@
   flex-direction: row;
   justify-content: space-between;
 }
+
+.red {
+  color: red !important;
+}
+
+.red-focus {
+  outline: dashed;
+
+  &:focus {
+    border: 1px solid red;
+  }
+}

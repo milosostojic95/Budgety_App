@@ -155,6 +155,12 @@ const UIController = (() => {
     return (type === 'exp' ? '-' : '+' ) + ' ' + int + '.' + dec;
   };
 
+  const nodeListForEach = function(list, callback) {
+    for (i = 0; i < list.length ; i++) {
+      callback(list[i],i);
+    }
+  }
+
   return {
     getInput: () => {
       return {
@@ -217,11 +223,6 @@ const UIController = (() => {
     displayPercentage: function(percentage) {
       const filds = document.querySelectorAll(DOMStrings.itemPercentage);
 
-      let nodeListForEach = (list, callback) => {
-        for (i = 0; i < list.length ; i++) {
-          callback(list[i],i);
-        }
-      }
 
       nodeListForEach(filds,function(current, index) {
         if(percentage[index] > 0) {
@@ -231,12 +232,26 @@ const UIController = (() => {
         }
       })
     },
+
     displayMonth: function() {
       const now = new Date();
       const months = ['January','February','March','April','May','June','July','August','Septe,ber','October','November','December'];
       const year = now.getFullYear();
       const month = now.getMonth();
       document.querySelector(DOMStrings.nowDate).textContent = months[month] + ' ' +year;
+    },
+
+    changeType: function() {
+      let x = document.querySelectorAll(
+        DOMStrings.inputType + ',' +
+        DOMStrings.inputDescription + ',' +
+        DOMStrings.inputValue);
+
+      nodeListForEach(x, function(cur) {
+        cur.classList.toggle('red-focus');
+
+      });
+      document.querySelector(DOMStrings.inputBtn).classList.toggle('red');
     },
 
     getDOMStrings: () => {
@@ -252,13 +267,16 @@ const controller = ((budgetCtrl,UICtrl) => {
     const DOM = UICtrl.getDOMStrings();
     const addItemBtn = document.querySelector(DOM.inputBtn);
     const container = document.querySelector(DOM.container);
+    const pickType = document.querySelector(DOM.inputType);
 
     addItemBtn.addEventListener('click',ctrlAddItems);
+    pickType.addEventListener('change', UICtrl.changeType);
     container.addEventListener('click', ctrlDeleteItem);
     addItemBtn.addEventListener('keypress', (event) => {
     if( event.keyCode === 13 || event.which === 13) {
       ctrlAddItems();
     }
+
   })
   }
 
