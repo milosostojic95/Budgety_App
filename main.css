@@ -27,12 +27,9 @@
   color: red !important;
 }
 
-.red-focus {
-  outline: dashed;
-}
-
 .red-focus:focus {
-  border: 1px solid red;
+  outline: none !important;
+  border: 1px solid red !important;
 }
 
 .item-delete-btn {
@@ -216,6 +213,11 @@
   border-radius: 5px;
 }
 
+.input-values .input-wrapper .description .add-description:focus {
+  outline: none;
+  border-color: seagreen;
+}
+
 .input-values .input-wrapper .value {
   -ms-flex-preferred-size: 20%;
       flex-basis: 20%;
@@ -226,6 +228,11 @@
   border: 1px solid #e7e7e7;
   padding: 12px 15px;
   border-radius: 5px;
+}
+
+.input-values .input-wrapper .value .add-value:focus {
+  outline: none;
+  border-color: seagreen;
 }
 
 .budget-content {

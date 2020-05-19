@@ -92,6 +92,17 @@ const budgetController = (() => {
       });
       data.total[type] = sum;
     },
+    saveLocal: function() {
+      localStorage.clear();
+      let items;
+      if(localStorage.getItem('items') === null) {
+        items = [];
+      } else {
+        items = JSON.parse(localStorage.getItem('items'))
+      }
+      items.push(data);
+      localStorage.setItem('items', JSON.stringify(items));
+    },
 
     calculateBudget: function() {
       // 1. calculate expnexes nad income
@@ -314,6 +325,8 @@ const controller = ((budgetCtrl,UICtrl) => {
       updateBudget();
       // 6. upodate and calc percentage
       updatePercentage();
+      // 7. dave to local
+      budgetCtrl.saveLocal();
     }
   }
   // delete items
