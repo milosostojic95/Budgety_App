@@ -25,7 +25,7 @@ const budgetController = (() => {
     this.value = value;
   };
 
-  const data = {
+  let data = {
     allItems: {
       exp: [],
       inc: []
@@ -92,6 +92,7 @@ const budgetController = (() => {
       });
       data.total[type] = sum;
     },
+
     saveLocal: function() {
       localStorage.clear();
       let items;
@@ -102,6 +103,16 @@ const budgetController = (() => {
       }
       items.push(data);
       localStorage.setItem('items', JSON.stringify(items));
+    },
+
+    getItemLocal: function() {
+      let items;
+      if(localStorage.getItem('items') === null) {
+        items = [];
+      } else {
+        items = JSON.parse(localStorage.getItem('items'));
+      }
+      return items;
     },
 
     calculateBudget: function() {
@@ -218,14 +229,15 @@ const UIController = (() => {
     },
 
     displayBudget: function(obj) {
-      let type
-      obj.budget > 0 ? type = 'inc' : type = 'exp';
+      let type;
+      obj[0].budget > 0 ? type = 'inc' : type = 'exp';
+      console.log(obj[0].percentage)
 
-      document.querySelector(DOMStrings.budgetLabel).textContent = formatNumber(obj.budget,type);
-      document.querySelector(DOMStrings.incomeLabel).textContent = formatNumber(obj.totalInc,'inc');
-      document.querySelector(DOMStrings.expenseLabel).textContent =  formatNumber(obj.totalExp, 'exp');
-      if(obj.percentage > 0) {
-        document.querySelector(DOMStrings.percentageLable).textContent = obj.percentage + '%';
+      document.querySelector(DOMStrings.budgetLabel).textContent = formatNumber(obj[0].budget,type);
+      document.querySelector(DOMStrings.incomeLabel).textContent = formatNumber(obj[0].total.inc,'inc');
+      document.querySelector(DOMStrings.expenseLabel).textContent =  formatNumber(obj[0].total.exp, 'exp');
+      if(obj[0].percentage > 0) {
+        document.querySelector(DOMStrings.percentageLable).textContent = obj[0].percentage + '%';
       } else {
         document.querySelector(DOMStrings.percentageLable).textContent = '---';
       }
@@ -353,13 +365,8 @@ const controller = ((budgetCtrl,UICtrl) => {
       console.log('Aplication has started.');
       setupEventListener();
       UICtrl.displayMonth();
-      UICtrl.displayBudget({
-        budget: 0,
-        totalInc: 0,
-        totalExp: 0,
-        percentage: -1
-      }
-      );
+      const items = budgetCtrl.getItemLocal();
+      UICtrl.displayBudget(items);
     }
   };
 
