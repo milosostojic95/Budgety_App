@@ -93,28 +93,6 @@ const budgetController = (() => {
       data.total[type] = sum;
     },
 
-    saveLocal: function() {
-      localStorage.clear();
-      let items;
-      if(localStorage.getItem('items') === null) {
-        items = [];
-      } else {
-        items = JSON.parse(localStorage.getItem('items'))
-      }
-      items.push(data);
-      localStorage.setItem('items', JSON.stringify(items));
-    },
-
-    getItemLocal: function() {
-      let items;
-      if(localStorage.getItem('items') === null) {
-        items = [];
-      } else {
-        items = JSON.parse(localStorage.getItem('items'));
-      }
-      return items;
-    },
-
     calculateBudget: function() {
       // 1. calculate expnexes nad income
       this.calculateTotal('inc');
@@ -137,8 +115,13 @@ const budgetController = (() => {
         percentage: data.percentage,
       }
     },
+
     testing: function() {
       console.log(data)
+    },
+
+    returnData: function() {
+      return data;
     }
   };
 
@@ -229,15 +212,14 @@ const UIController = (() => {
     },
 
     displayBudget: function(obj) {
-      let type;
-      obj[0].budget > 0 ? type = 'inc' : type = 'exp';
-      console.log(obj[0].percentage)
+      let type
+      obj.budget > 0 ? type = 'inc' : type = 'exp';
 
-      document.querySelector(DOMStrings.budgetLabel).textContent = formatNumber(obj[0].budget,type);
-      document.querySelector(DOMStrings.incomeLabel).textContent = formatNumber(obj[0].total.inc,'inc');
-      document.querySelector(DOMStrings.expenseLabel).textContent =  formatNumber(obj[0].total.exp, 'exp');
-      if(obj[0].percentage > 0) {
-        document.querySelector(DOMStrings.percentageLable).textContent = obj[0].percentage + '%';
+      document.querySelector(DOMStrings.budgetLabel).textContent = formatNumber(obj.budget,type);
+      document.querySelector(DOMStrings.incomeLabel).textContent = formatNumber(obj.totalInc,'inc');
+      document.querySelector(DOMStrings.expenseLabel).textContent =  formatNumber(obj.totalExp, 'exp');
+      if(obj.percentage > 0) {
+        document.querySelector(DOMStrings.percentageLable).textContent = obj.percentage + '%';
       } else {
         document.querySelector(DOMStrings.percentageLable).textContent = '---';
       }
@@ -313,6 +295,18 @@ const controller = ((budgetCtrl,UICtrl) => {
     UICtrl.displayBudget(budget);
   }
 
+   function saveLocal() {
+    localStorage.clear();
+    let items;
+    if(localStorage.getItem('items') === null) {
+      items = [];
+    } else {
+      items = JSON.parse(localStorage.getItem('items'))
+    }
+    items.push(budgetCtrl.returnData());
+    localStorage.setItem('items', JSON.stringify(items));
+  }
+
   function updatePercentage() {
     // 1. calculate precentage
     budgetCtrl.calculatePercentage();
@@ -338,7 +332,8 @@ const controller = ((budgetCtrl,UICtrl) => {
       // 6. upodate and calc percentage
       updatePercentage();
       // 7. dave to local
-      budgetCtrl.saveLocal();
+      saveLocal();
+
     }
   }
   // delete items
@@ -365,8 +360,13 @@ const controller = ((budgetCtrl,UICtrl) => {
       console.log('Aplication has started.');
       setupEventListener();
       UICtrl.displayMonth();
-      const items = budgetCtrl.getItemLocal();
-      UICtrl.displayBudget(items);
+      UICtrl.displayBudget({
+        budget: 0,
+        totalInc: 0,
+        totalExp: 0,
+        percentage: -1
+      }
+      );
     }
   };
 
