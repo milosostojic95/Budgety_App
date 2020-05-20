@@ -103,7 +103,7 @@ const budgetController = (() => {
         totalBudget = JSON.parse(localStorage.getItem('totalBudget'))
       }
 
-      totalBudget[type] += sum;
+      totalBudget[type] =  sum;
       localStorage.setItem('totalBudget',JSON.stringify(totalBudget));
     },
 
@@ -113,13 +113,15 @@ const budgetController = (() => {
       this.calculateTotal('inc');
       this.calculateTotal('exp');
       // 2. calculate budget and save to local
-      data.budget = data.total.inc - data.total.exp;
+
       if(localStorage.getItem('budget') === null) {
         budget = 0;
       } else {
         budget = JSON.parse(localStorage.getItem('budget'));
       }
+      data.budget = budget + data.total.inc - data.total.exp;
       budget = data.total.inc - data.total.exp;
+
       localStorage.setItem('budget',JSON.stringify(budget));
       //3. calculate the percentage of income we spent
       if(data.total.inc > 0) {
@@ -146,8 +148,9 @@ const budgetController = (() => {
       items = JSON.parse(localStorage.getItem('items'));
       return items;
     },
-    returnData: function() {
-      return data;
+
+    updateData: function(budget) {
+      data.budget = budget;
     }
   };
 
@@ -275,7 +278,6 @@ const UIController = (() => {
     displayPercentage: function(percentage) {
       const filds = document.querySelectorAll(DOMStrings.itemPercentage);
 
-
       nodeListForEach(filds,function(current, index) {
         if(percentage[index] > 0) {
           current.textContent = percentage[index] + '%';
@@ -325,7 +327,7 @@ const controller = ((budgetCtrl,UICtrl) => {
     pickType.addEventListener('change', UICtrl.changeType);
     container.addEventListener('click', ctrlDeleteItem);
     addItemBtn.addEventListener('keypress', (event) => {
-    if( event.keyCode === 13 || event.which === 13) {
+    if( event.keyCode === 13) {
       ctrlAddItems();
     }
 
@@ -432,14 +434,23 @@ const controller = ((budgetCtrl,UICtrl) => {
       UICtrl.addItemFromLocal();
       const budget = JSON.parse(localStorage.getItem('budget'));
       const totalBudget = JSON.parse(localStorage.getItem('totalBudget'));
-      console.log(totalBudget)
-      UICtrl.displayBudget({
-        budget: budget,
-        totalInc: totalBudget['inc'],
-        totalExp: totalBudget['exp'],
-        percentage: -1
+      const percentage = JSON.parse(localStorage.getItem('items'));
+      budgetCtrl.updateData(budget);
+      if(totalBudget === '') {
+        UICtrl.displayBudget({
+          budget: 0,
+          totalInc: 0,
+          totalExp: 0,
+          percentage: -1
+        })
+      } else {
+        UICtrl.displayBudget({
+          budget: budget,
+          totalInc: totalBudget['inc'],
+          totalExp: totalBudget['exp'],
+          percentage: percentage['exp'].percentage
+        })
       }
-      );
     }
   };
 
