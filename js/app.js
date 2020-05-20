@@ -91,9 +91,7 @@ const budgetController = (() => {
       data.allItems[type].forEach((cur) => {
         sum += cur.value;
       });
-
       data.total[type] = sum;
-
       if(localStorage.getItem('totalBudget') === null) {
         totalBudget = {
           inc: 0,
@@ -112,14 +110,13 @@ const budgetController = (() => {
       // 1. calculate expnexes nad income
       this.calculateTotal('inc');
       this.calculateTotal('exp');
-      // 2. calculate budget and save to local
 
       if(localStorage.getItem('budget') === null) {
         budget = 0;
       } else {
         budget = JSON.parse(localStorage.getItem('budget'));
       }
-      data.budget = budget + data.total.inc - data.total.exp;
+      data.budget = data.total.inc - data.total.exp;
       budget = data.total.inc - data.total.exp;
 
       localStorage.setItem('budget',JSON.stringify(budget));
@@ -149,8 +146,11 @@ const budgetController = (() => {
       return items;
     },
 
-    updateData: function(budget) {
+    updateData: function(budget,per,totalBudget) {
       data.budget = budget;
+      data.percentage = per['exp'][0].percentage;
+      data.total.exp = totalBudget.exp;
+      data.total.inc = totalBudget.inc;
     }
   };
 
@@ -435,7 +435,7 @@ const controller = ((budgetCtrl,UICtrl) => {
       const budget = JSON.parse(localStorage.getItem('budget'));
       const totalBudget = JSON.parse(localStorage.getItem('totalBudget'));
       const percentage = JSON.parse(localStorage.getItem('items'));
-      budgetCtrl.updateData(budget);
+      budgetCtrl.updateData(budget,percentage,totalBudget);
       if(totalBudget === '') {
         UICtrl.displayBudget({
           budget: 0,
