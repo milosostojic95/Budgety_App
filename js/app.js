@@ -91,6 +91,7 @@ const budgetController = (() => {
       data.allItems[type].forEach((cur) => {
         sum += cur.value;
       });
+
       data.total[type] = sum;
 
       if(localStorage.getItem('totalBudget') === null) {
@@ -102,7 +103,7 @@ const budgetController = (() => {
         totalBudget = JSON.parse(localStorage.getItem('totalBudget'))
       }
 
-      totalBudget[type] = sum;
+      totalBudget[type] += sum;
       localStorage.setItem('totalBudget',JSON.stringify(totalBudget));
     },
 
@@ -213,10 +214,31 @@ const UIController = (() => {
       // replace place holder with some actual date
       newHtml = html.replace('%id%', obj.id);
       newHtml = newHtml.replace('%description%', obj.description);
-      newHtml = newHtml.replace('%value%', formatNumber(obj.value, type));
+      newHtml = newHtml.replace('%value%',formatNumber(obj.value, type));
       // insert html to DOM
       document.querySelector(element).insertAdjacentHTML('beforeend',newHtml);
 
+    },
+
+    addItemFromLocal: () => {
+      let items, html, newHtml,element;
+      items = JSON.parse(localStorage.getItem('items'));
+      for(i = 0; i < items.inc.length; i++) {
+        element = DOMStrings.incomeContainer;
+        html = '<div class="item" id="inc-%id%"><div class="item-description">%description%</div><div class="right"><div class="item-value">%value%</div><div class="item-delete"><button class="item-delete-btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
+        newHtml = html.replace('%id%',items.inc[i].id);
+        newHtml = newHtml.replace('%description%',items.inc[i].description);
+        newHtml = newHtml.replace('%value%', formatNumber(items.inc[i].value, 'inc'));
+        document.querySelector(element).insertAdjacentHTML('beforeend',newHtml);
+      }
+      for(i = 0; i < items.exp.length; i++) {
+        element = DOMStrings.expensesContainer;
+        html =  '<div class="item" id="exp-%id%"><div class="item-description">%description%</div><div class="right"><div class="item-value">%value%</div><div class="item-percentage"></div><div class="item-delete"><button class="item-delete-btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
+        newHtml = html.replace('%id%',items.inc[i].id);
+        newHtml = newHtml.replace('%description%',items.inc[i].description);
+        newHtml = newHtml.replace('%value%', formatNumber(items.exp[i].value, 'exp'));
+        document.querySelector(element).insertAdjacentHTML('beforeend',newHtml);
+      }
     },
 
     deleteListItem: function(selectorID) {
@@ -407,10 +429,14 @@ const controller = ((budgetCtrl,UICtrl) => {
       console.log('Aplication has started.');
       setupEventListener();
       UICtrl.displayMonth();
+      UICtrl.addItemFromLocal();
+      const budget = JSON.parse(localStorage.getItem('budget'));
+      const totalBudget = JSON.parse(localStorage.getItem('totalBudget'));
+      console.log(totalBudget)
       UICtrl.displayBudget({
-        budget: 0,
-        totalInc: 0,
-        totalExp: 0,
+        budget: budget,
+        totalInc: totalBudget['inc'],
+        totalExp: totalBudget['exp'],
         percentage: -1
       }
       );
