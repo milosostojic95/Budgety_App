@@ -91,7 +91,8 @@ const budgetController = (() => {
       data.allItems[type].forEach((cur) => {
         sum += cur.value;
       });
-      data.total[type] = sum;
+      data.total[type] += sum;
+
       if(localStorage.getItem('totalBudget') === null) {
         totalBudget = {
           inc: 0,
@@ -101,15 +102,15 @@ const budgetController = (() => {
         totalBudget = JSON.parse(localStorage.getItem('totalBudget'))
       }
 
-      totalBudget[type] =  sum;
+      totalBudget[type] +=  sum;
       localStorage.setItem('totalBudget',JSON.stringify(totalBudget));
+
     },
 
-    calculateBudget: function() {
+    calculateBudget: function(type) {
       let budget;
       // 1. calculate expnexes nad income
-      this.calculateTotal('inc');
-      this.calculateTotal('exp');
+      this.calculateTotal(type);
 
       if(localStorage.getItem('budget') === null) {
         budget = 0;
@@ -327,17 +328,17 @@ const controller = ((budgetCtrl,UICtrl) => {
     pickType.addEventListener('change', UICtrl.changeType);
     container.addEventListener('click', ctrlDeleteItem);
     addItemBtn.addEventListener('keypress', (event) => {
-    if( event.keyCode === 13) {
+    if( event.key === 13 || event.which == 13) {
       ctrlAddItems();
     }
 
   })
   }
 
-  function updateBudget() {
+  function updateBudget(type) {
     let budget;
     // 1. calculate budget
-    budgetCtrl.calculateBudget();
+    budgetCtrl.calculateBudget(type);
     // 2.return budget
     budget = budgetCtrl.getBudget();
     //3. display budget
@@ -385,7 +386,7 @@ const controller = ((budgetCtrl,UICtrl) => {
     UICtrl.displayPercentage(expPercentage);
 
   }
-  // add items
+  // add items on click
   function ctrlAddItems() {
     // 1. get input date
     const input = UICtrl.getInput();
@@ -395,14 +396,14 @@ const controller = ((budgetCtrl,UICtrl) => {
       const newItem = budgetCtrl.addItem(input.type, input.description, input.value);
       // 3. add item to ui
       UICtrl.addListItem(newItem, input.type);
+      // 4. save to local
+      saveLocalItems(newItem,input.type);
       // 4. clear filed
       UICtrl.clearFields();
       // 5. calculate and update budget
-      updateBudget();
+      updateBudget(input.type);
       // 6. upodate and calc percentage
       updatePercentage();
-      // 7. dave to local
-      saveLocalItems(newItem,input.type);
     }
   }
   // delete items
