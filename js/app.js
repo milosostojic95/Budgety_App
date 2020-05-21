@@ -1,26 +1,26 @@
 const budgetController = (() => {
 
-  const Expenses = (id, description, value)=> {
+  const Expenses = function(id, description, value) {
     this.id = id;
     this.description = description;
     this.value = value;
     this.percentage = -1;
   };
 
-  Expenses.prototype.calcPercentage = (totalIncome)=> {
+  /*Expenses.prototype.calcPercentage = (totalIncome)=> {
     if(totalIncome > 0) {
       console.log(this.va)
       this.percentage = Math.round((this.value / totalIncome) * 100);
     } else {
       this.percentage = -1;
     }
-  };
+  };*/
 
-  Expenses.prototype.getPercentage = ()=> {
+  /*Expenses.prototype.getPercentage = ()=> {
     return this.percentage;
-  }
+  }*/
 
-  const Income = (id, description, value) => {
+  const Income = function(id, description, value)  {
     this.id = id;
     this.description = description;
     this.value = value;
@@ -73,7 +73,7 @@ const budgetController = (() => {
       }
     },
 
-    calculateTotal: (type)=> {
+    calculateTotal: function(type) {
       let sum = 0;
       let totalBudget;
       data.allItems[type].forEach((cur) => {
@@ -95,7 +95,7 @@ const budgetController = (() => {
 
     },
 
-    calculateBudget: (type)=> {
+    calculateBudget: function(type) {
       let budget;
       // 1. calculate expnexes nad income
       this.calculateTotal(type);
@@ -215,7 +215,7 @@ const UIController = (() => {
     addItemFromLocal: () => {
       let items, html, newHtml,element;
       items = JSON.parse(localStorage.getItem('items'));
-      for(i = 0; i < items.inc.length; i++) {
+      for(i = 0; i < items['inc'].length; i++) {
         element = DOMStrings.incomeContainer;
         html = '<div class="item" id="inc-%id%"><div class="item-description">%description%</div><div class="right"><div class="item-value">%value%</div><div class="item-delete"><button class="item-delete-btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
         newHtml = html.replace('%id%',items.inc[i].id);
@@ -223,7 +223,7 @@ const UIController = (() => {
         newHtml = newHtml.replace('%value%', formatNumber(items.inc[i].value, 'inc'));
         document.querySelector(element).insertAdjacentHTML('beforeend',newHtml);
       }
-      for(i = 0; i < items.exp.length; i++) {
+      for(i = 0; i < items['exp'].length; i++) {
         element = DOMStrings.expensesContainer;
         html =  '<div class="item" id="exp-%id%"><div class="item-description">%description%</div><div class="right"><div class="item-value">%value%</div><div class="item-percentage"></div><div class="item-delete"><button class="item-delete-btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
         newHtml = html.replace('%id%',items.inc[i].id);
