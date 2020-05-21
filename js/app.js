@@ -1,13 +1,13 @@
 const budgetController = (() => {
 
-  const Expenses = function(id, description, value) {
+  const Expenses = (id, description, value)=> {
     this.id = id;
     this.description = description;
     this.value = value;
     this.percentage = -1;
   };
 
-  Expenses.prototype.calcPercentage = function(totalIncome) {
+  Expenses.prototype.calcPercentage = (totalIncome)=> {
     if(totalIncome > 0) {
       console.log(this.va)
       this.percentage = Math.round((this.value / totalIncome) * 100);
@@ -16,11 +16,11 @@ const budgetController = (() => {
     }
   };
 
-  Expenses.prototype.getPercentage = function() {
+  Expenses.prototype.getPercentage = ()=> {
     return this.percentage;
   }
 
-  const Income = function (id, description, value) {
+  const Income = (id, description, value) => {
     this.id = id;
     this.description = description;
     this.value = value;
@@ -61,7 +61,7 @@ const budgetController = (() => {
       return newItem;
     },
 
-    deleteItem: function(type, id) {
+    deleteItem: (type, id)=> {
       let ids,index;
 
       ids = data.allItems[type].map((current)=> {
@@ -73,7 +73,7 @@ const budgetController = (() => {
       }
     },
 
-    calculateTotal: function(type) {
+    calculateTotal: (type)=> {
       let sum = 0;
       let totalBudget;
       data.allItems[type].forEach((cur) => {
@@ -95,7 +95,7 @@ const budgetController = (() => {
 
     },
 
-    calculateBudget: function(type) {
+    calculateBudget: (type)=> {
       let budget;
       // 1. calculate expnexes nad income
       this.calculateTotal(type);
@@ -117,7 +117,7 @@ const budgetController = (() => {
       }
     },
 
-    getBudget: function() {
+    getBudget: ()=> {
       return {
         budget: data.budget,
         totalInc: data.total.inc,
@@ -126,16 +126,16 @@ const budgetController = (() => {
       }
     },
 
-    testing: function() {
+    testing: ()=> {
       console.log(data)
     },
 
-    returnLocal: function() {
+    returnLocal: ()=> {
       items = JSON.parse(localStorage.getItem('items'));
       return items;
     },
 
-    updateData: function(budget,items,totalBudget) {
+    updateData: (budget,items,totalBudget)=>{
       data.budget = budget;
       data.percentage = -1;
       data.total.exp = totalBudget.exp;
@@ -178,7 +178,7 @@ const UIController = (() => {
     return (type === 'exp' ? '-' : '+' ) + ' ' + int + '.' + dec;
   };
 
-  const nodeListForEach = function(list, callback) {
+  const nodeListForEach = (list, callback)=> {
     for (i = 0; i < list.length ; i++) {
       callback(list[i],i);
     }
@@ -233,12 +233,12 @@ const UIController = (() => {
       }
     },
 
-    deleteListItem: function(selectorID) {
+    deleteListItem: (selectorID)=>{
       const el = document.getElementById(selectorID);
       el.parentNode.removeChild(el);
     },
 
-    clearFields: function() {
+    clearFields: ()=> {
       let fields,fieldsArr;
 
       fields = document.querySelectorAll(DOMStrings.inputDescription + ',' + DOMStrings.inputValue);
@@ -250,7 +250,7 @@ const UIController = (() => {
 
     },
 
-    displayBudget: function(obj) {
+    displayBudget: (obj)=> {
       let type
       obj.budget > 0 ? type = 'inc' : type = 'exp';
 
@@ -259,10 +259,10 @@ const UIController = (() => {
       document.querySelector(DOMStrings.expenseLabel).textContent =  formatNumber(obj.totalExp, 'exp');
     },
 
-    displayPercentage: function(percentage) {
+    displayPercentage: (percentage)=> {
       const filds = document.querySelectorAll(DOMStrings.itemPercentage);
 
-      nodeListForEach(filds,function(current, index) {
+      nodeListForEach(filds,(current, index)=> {
         if(percentage[index] > 0) {
           current.textContent = percentage[index] + '%';
         } else {
@@ -271,7 +271,7 @@ const UIController = (() => {
       })
     },
 
-    displayMonth: function() {
+    displayMonth: () => {
       const now = new Date();
       const months = ['January','February','March','April','May','June','July','August','Septe,ber','October','November','December'];
       const year = now.getFullYear();
@@ -279,7 +279,7 @@ const UIController = (() => {
       document.querySelector(DOMStrings.nowDate).textContent = months[month] + ' ' +year;
     },
 
-    changeType: function() {
+    changeType: ()=> {
       let x = document.querySelectorAll(
         DOMStrings.inputType + ',' +
         DOMStrings.inputDescription + ',' +
