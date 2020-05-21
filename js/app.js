@@ -9,6 +9,7 @@ const budgetController = (() => {
 
   Expenses.prototype.calcPercentage = function(totalIncome) {
     if(totalIncome > 0) {
+      console.log(this.va)
       this.percentage = Math.round((this.value / totalIncome) * 100);
     } else {
       this.percentage = -1;
@@ -70,19 +71,6 @@ const budgetController = (() => {
       if(index !== -1) {
         data.allItems[type].splice(index, 1)
       }
-    },
-
-    calculatePercentage: function() {
-      data.allItems.exp.forEach((per) => {
-        // per.calcPercentage(data.total.inc);
-      });
-    },
-
-    getPercentage: function() {
-      let allPercentage = data.allItems.exp.map((cur) => {
-        return cur.getPercentage();
-      });
-      return allPercentage;
     },
 
     calculateTotal: function(type) {
@@ -173,9 +161,7 @@ const UIController = (() => {
     budgetLabel: '.budget-value',
     incomeLabel: '.budget-income-value',
     expenseLabel: '.budget-expenses-value',
-    percentageLable: '.budget-expenses-percentage',
     container: '.budget-content',
-    itemPercentage: '.item-percentage',
     nowDate: '.budget-title-month',
   }
 
@@ -271,11 +257,6 @@ const UIController = (() => {
       document.querySelector(DOMStrings.budgetLabel).textContent = formatNumber(obj.budget,type);
       document.querySelector(DOMStrings.incomeLabel).textContent = formatNumber(obj.totalInc,'inc');
       document.querySelector(DOMStrings.expenseLabel).textContent =  formatNumber(obj.totalExp, 'exp');
-      if(obj.percentage > 0) {
-        document.querySelector(DOMStrings.percentageLable).textContent = obj.percentage + '%';
-      } else {
-        document.querySelector(DOMStrings.percentageLable).textContent = '---';
-      }
     },
 
     displayPercentage: function(percentage) {
@@ -379,15 +360,6 @@ const controller = ((budgetCtrl,UICtrl) => {
     localStorage.setItem('items',JSON.stringify(items))
   }
 
-  function updatePercentage() {
-    // 1. calculate precentage
-    budgetCtrl.calculatePercentage();
-    // 2. get percentage
-    let expPercentage = budgetCtrl.getPercentage();
-    // 3. diplsay percentage
-    UICtrl.displayPercentage(expPercentage);
-
-  }
   // add items on click
   function ctrlAddItems() {
     // 1. get input date
@@ -405,7 +377,6 @@ const controller = ((budgetCtrl,UICtrl) => {
       // 5. calculate and update budget
       updateBudget(input.type);
       // 6. upodate and calc percentage
-      updatePercentage();
     }
   }
   // delete items
@@ -421,8 +392,6 @@ const controller = ((budgetCtrl,UICtrl) => {
       UICtrl.deleteListItem(itemId);
       // 3. update budget
       updateBudget(type);
-      // 4. update and calc percentage
-      updatePercentage();
 
       deleteLocalItems(type,ID);
     }

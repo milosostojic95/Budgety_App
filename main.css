@@ -167,13 +167,9 @@
   font-size: 20px;
 }
 
-.hero .budget .budget-expenses .right .budget-expenses-percentage {
-  margin-left: .5rem;
-  color: white;
-}
-
 .hero .budget .budget-expenses .right .budget-expenses-value {
   color: white;
+  margin-right: 1.5rem;
 }
 
 .input-values {
