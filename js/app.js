@@ -74,7 +74,7 @@ const budgetController = (() => {
 
     calculatePercentage: function() {
       data.allItems.exp.forEach((per) => {
-        per.calcPercentage(data.total.inc);
+        // per.calcPercentage(data.total.inc);
       });
     },
 
@@ -91,7 +91,7 @@ const budgetController = (() => {
       data.allItems[type].forEach((cur) => {
         sum += cur.value;
       });
-      data.total[type] += sum;
+      data.total[type] = sum;
 
       if(localStorage.getItem('totalBudget') === null) {
         totalBudget = {
@@ -102,7 +102,7 @@ const budgetController = (() => {
         totalBudget = JSON.parse(localStorage.getItem('totalBudget'))
       }
 
-      totalBudget[type] +=  sum;
+      totalBudget[type] = data.total[type];
       localStorage.setItem('totalBudget',JSON.stringify(totalBudget));
 
     },
@@ -147,11 +147,13 @@ const budgetController = (() => {
       return items;
     },
 
-    updateData: function(budget,per,totalBudget) {
+    updateData: function(budget,items,totalBudget) {
       data.budget = budget;
-      data.percentage = per['exp'][0].percentage;
+      data.percentage = -1;
       data.total.exp = totalBudget.exp;
       data.total.inc = totalBudget.inc;
+      data.allItems.inc = items.inc;
+      data.allItems.exp = items.exp;
     }
   };
 
@@ -418,7 +420,7 @@ const controller = ((budgetCtrl,UICtrl) => {
       // delete from ui
       UICtrl.deleteListItem(itemId);
       // 3. update budget
-      updateBudget();
+      updateBudget(type);
       // 4. update and calc percentage
       updatePercentage();
 
@@ -435,8 +437,8 @@ const controller = ((budgetCtrl,UICtrl) => {
       UICtrl.addItemFromLocal();
       const budget = JSON.parse(localStorage.getItem('budget'));
       const totalBudget = JSON.parse(localStorage.getItem('totalBudget'));
-      const percentage = JSON.parse(localStorage.getItem('items'));
-      budgetCtrl.updateData(budget,percentage,totalBudget);
+      const items = JSON.parse(localStorage.getItem('items'));
+      budgetCtrl.updateData(budget,items,totalBudget);
       if(totalBudget === '') {
         UICtrl.displayBudget({
           budget: 0,
@@ -449,7 +451,7 @@ const controller = ((budgetCtrl,UICtrl) => {
           budget: budget,
           totalInc: totalBudget['inc'],
           totalExp: totalBudget['exp'],
-          percentage: percentage['exp'].percentage
+          percentage: -1
         })
       }
     }
