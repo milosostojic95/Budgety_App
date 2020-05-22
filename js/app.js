@@ -1,30 +1,31 @@
 const budgetController = (() => {
 
-  const Expenses = function(id, description, value) {
-    this.id = id;
-    this.description = description;
-    this.value = value;
-    this.percentage = -1;
-  };
-
-  /*Expenses.prototype.calcPercentage = (totalIncome)=> {
-    if(totalIncome > 0) {
-      console.log(this.va)
-      this.percentage = Math.round((this.value / totalIncome) * 100);
-    } else {
+  class Expenses  {
+    constructor(id,description,value) {
+      this.id = id;
+      this.description = description;
+      this.value = value;
       this.percentage = -1;
     }
-  };*/
-
-  /*Expenses.prototype.getPercentage = ()=> {
-    return this.percentage;
-  }*/
-
-  const Income = function(id, description, value)  {
-    this.id = id;
-    this.description = description;
-    this.value = value;
-  };
+    /*calcPercenate(totalINcome) {
+      if(totalIncome > 0) {
+        console.log(this.va)
+        this.percentage = Math.round((this.value / totalIncome) * 100);
+      } else {
+      this.percentage = -1;
+      }
+      getPercentage() {
+        return this.percentage
+      }
+    }*/
+  }
+  class Income {
+    constructor(id,description,value) {
+      this.id = id;
+      this.description = description;
+      this.value = value;
+    }
+  }
 
   let data = {
     allItems: {
