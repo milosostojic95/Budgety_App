@@ -1,0 +1,19 @@
+$media-queries: (
+  mobile: 320px,
+  smallTablet: 768px,
+  tablet: 980px,
+  laptop: 1240px,
+  desktop: 1440px
+);
+
+@mixin breakpoint($point, $type: min) {
+  @if map-has-key($media-queries, $point) {
+    @media screen and (#{$type}-width: #{map-get($media-queries, $point)}) {
+      @content;
+    }
+  } @else {
+    @error 'There is not value that could be retrieved from "#{$point}". '
+      + 'Please make sure that "#{$point}" is defined in $media-queries map.';
+  }
+}
+

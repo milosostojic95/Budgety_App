@@ -64,9 +64,7 @@ const budgetController = (() => {
     deleteItem: (type, id)=> {
       let ids,index;
 
-      ids = data.allItems[type].map((current)=> {
-        return current.id;
-      })
+      ids = data.allItems[type].map(current => current.id);
       index = ids.indexOf(id);
       if(index !== -1) {
         data.allItems[type].splice(index, 1)
@@ -226,8 +224,8 @@ const UIController = (() => {
       for(i = 0; i < items['exp'].length; i++) {
         element = DOMStrings.expensesContainer;
         html =  '<div class="item" id="exp-%id%"><div class="item-description">%description%</div><div class="right"><div class="item-value">%value%</div><div class="item-percentage"></div><div class="item-delete"><button class="item-delete-btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
-        newHtml = html.replace('%id%',items.inc[i].id);
-        newHtml = newHtml.replace('%description%',items.inc[i].description);
+        newHtml = html.replace('%id%',items.exp[i].id);
+        newHtml = newHtml.replace('%description%',items.exp[i].description);
         newHtml = newHtml.replace('%value%', formatNumber(items.exp[i].value, 'exp'));
         document.querySelector(element).insertAdjacentHTML('beforeend',newHtml);
       }
