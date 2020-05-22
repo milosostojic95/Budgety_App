@@ -1,6 +1,6 @@
 const budgetController = (() => {
 
-  class Expenses  {
+  class Expenses {
     constructor(id,description,value) {
       this.id = id;
       this.description = description;
@@ -19,6 +19,7 @@ const budgetController = (() => {
       }
     }*/
   }
+
   class Income {
     constructor(id,description,value) {
       this.id = id;
@@ -27,7 +28,7 @@ const budgetController = (() => {
     }
   }
 
-  let data = {
+  const data = {
     allItems: {
       exp: [],
       inc: []
