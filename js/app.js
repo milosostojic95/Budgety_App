@@ -1,30 +1,34 @@
 const budgetController = (() => {
-
-  class Expenses {
-    constructor(id,description,value) {
+  class Element {
+    constructor(id, description, value) {
       this.id = id;
       this.description = description;
       this.value = value;
-      this.percentage = -1;
     }
-    /*calcPercenate(totalINcome) {
+  }
+
+  class Expenses extends Element {
+    constructor(id,description,value, percentage) {
+      super(id, description, value);
+      this.percentage = percentage;
+    }
+
+    calcPercentage() {
       if(totalIncome > 0) {
-        console.log(this.va)
         this.percentage = Math.round((this.value / totalIncome) * 100);
       } else {
       this.percentage = -1;
       }
-      getPercentage() {
-        return this.percentage
-      }
-    }*/
+    }
+
+    getPercentage() {
+      return this.percentage
+    }
   }
 
-  class Income {
-    constructor(id,description,value) {
-      this.id = id;
-      this.description = description;
-      this.value = value;
+  class Income extends Element {
+    constructor(id, description, value) {
+      super(id, description, value);
     }
   }
 
@@ -53,7 +57,7 @@ const budgetController = (() => {
       }
       //create new item
       if(type === 'exp') {
-        newItem = new Expenses(ID, des, val);
+        newItem = new Expenses(ID, des, val, -1);
       } else if(type === 'inc') {
         newItem = new Income(ID, des, val);
       }
@@ -71,6 +75,11 @@ const budgetController = (() => {
       if(index !== -1) {
         data.allItems[type].splice(index, 1)
       }
+    },
+
+    calculatePercentage: () => {
+      calcPercentage(data.total.inc);
+      return getPercentage();
     },
 
     calculateTotal: function(type) {
@@ -161,8 +170,10 @@ const UIController = (() => {
     budgetLabel: '.budget-value',
     incomeLabel: '.budget-income-value',
     expenseLabel: '.budget-expenses-value',
+    percentageLabel: '.budget-expenses-percentage',
     container: '.budget-content',
     nowDate: '.budget-title-month',
+
   }
 
   function formatNumber(num,type) {
@@ -257,6 +268,7 @@ const UIController = (() => {
       document.querySelector(DOMStrings.budgetLabel).textContent = formatNumber(obj.budget,type);
       document.querySelector(DOMStrings.incomeLabel).textContent = formatNumber(obj.totalInc,'inc');
       document.querySelector(DOMStrings.expenseLabel).textContent =  formatNumber(obj.totalExp, 'exp');
+      document.querySelector(DOMStrings.percentageLabel).textContent = obj.percentage + '%';
     },
 
     displayPercentage: (percentage)=> {
@@ -328,6 +340,11 @@ const controller = ((budgetCtrl,UICtrl) => {
     UICtrl.displayBudget(budget);
   }
 
+  function updatePercentage(obj) {
+    budgetCtrl.calculatePercentage(obj);
+    console.log(per)
+  }
+
    function saveLocalItems(item,type) {
     let items;
     if(localStorage.getItem('items') === null) {
@@ -377,6 +394,7 @@ const controller = ((budgetCtrl,UICtrl) => {
       // 5. calculate and update budget
       updateBudget(input.type);
       // 6. upodate and calc percentage
+      updatePercentage(newItem);
     }
   }
   // delete items
@@ -408,21 +426,12 @@ const controller = ((budgetCtrl,UICtrl) => {
       const totalBudget = JSON.parse(localStorage.getItem('totalBudget'));
       const items = JSON.parse(localStorage.getItem('items'));
       budgetCtrl.updateData(budget,items,totalBudget);
-      if(totalBudget === '') {
-        UICtrl.displayBudget({
-          budget: 0,
-          totalInc: 0,
-          totalExp: 0,
-          percentage: -1
-        })
-      } else {
-        UICtrl.displayBudget({
-          budget: budget,
-          totalInc: totalBudget['inc'],
-          totalExp: totalBudget['exp'],
-          percentage: -1
-        })
-      }
+      UICtrl.displayBudget({
+        budget: budget,
+        totalInc: totalBudget['inc'],
+        totalExp: totalBudget['exp'],
+        percentage: -1
+      })
     }
   };
 
