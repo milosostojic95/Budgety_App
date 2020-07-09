@@ -173,7 +173,6 @@ const UIController = (() => {
     percentageLabel: '.budget-expenses-percentage',
     container: '.budget-content',
     nowDate: '.budget-title-month',
-
   }
 
   function formatNumber(num,type) {
@@ -189,6 +188,8 @@ const UIController = (() => {
     return (type === 'exp' ? '-' : '+' ) + ' ' + int + '.' + dec;
   };
 
+
+  // calling callback function in function
   const nodeListForEach = (list, callback)=> {
     for (i = 0; i < list.length ; i++) {
       callback(list[i],i);
@@ -285,7 +286,7 @@ const UIController = (() => {
 
     displayMonth: () => {
       const now = new Date();
-      const months = ['January','February','March','April','May','June','July','August','Septe,ber','October','November','December'];
+      const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
       const year = now.getFullYear();
       const month = now.getMonth();
       document.querySelector(DOMStrings.nowDate).textContent = months[month] + ' ' +year;
